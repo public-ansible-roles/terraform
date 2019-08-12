@@ -1,6 +1,20 @@
 ---
-- name: "terraform | download zip file from remote src and unarchive it"
-  unarchive:
-    src: "{{ download_url}}"
-    dest: /usr/local/bin
-    remote_src: yes
+- name: "terraform | clone tfenv repository"
+  git:
+    repo: "https://github.com/tfutils/tfenv.git"
+    dest: "{{ tfenv_dir }}/.tfenv"
+
+- name: "terraform | add path for tfenv/bin/* to /etc/profile"
+  lineinfile:
+    path: "/etc/profile"
+    line: 'export PATH="{{ tfenv_dir }}/.tfenv/bin:$PATH"'
+    state: present
+    
+- name: "terraform | check whether terraform has been already installed or not"
+  shell: "{{ tfenv_dir }}/.tfenv/bin/terraform --version"
+  register: register
+  ignore_errors: true
+
+- name: "terraform | install terraform"
+  shell: "{{ tfenv_dir }}/.tfenv/bin/tfenv install {{ version }}"
+  when: register.rc != 0

@@ -1,3 +1,4 @@
 ---
-download_url: "https://releases.hashicorp.com/terraform/0.12.5/terraform_0.12.5_linux_amd64.zip"
-csum: "sha256:babb4a30b399fb6fc87a6aa7435371721310c2e2102a95a763ef2c979ab06ce22"
+user: "infra_admin"
+tfenv_dir: "/home/{{ user }}"
+version: 0.11.7
