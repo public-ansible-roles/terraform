@@ -1,4 +1,3 @@
 ---
-terraform_user: "infra-admin"
 tfenv_dir: "/home/{{ terraform_user }}/.tfenv"
 version: 0.11.7
