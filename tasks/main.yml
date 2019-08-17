@@ -31,13 +31,15 @@
     dest: "/usr/local/bin/tfenv"
     state: link
    
-- name: "terraform | check whether terraform has been already installed or not"
-  shell: "/usr/local/bin/terraform --version"
+- name: "terraform | check if terraform {{ version }} has been already installed or not"
+  shell: "tfenv list"
   register: register
+  become: false
+  remote_user: "{{ terraform_user }}"
   ignore_errors: true
 
 - name: "terraform | install terraform {{ version}}"
   shell: "/usr/local/bin/tfenv install {{ version }}"
-  when: register.rc != 0
+  when: "'{{ version }}' not in register.stdout"
   become: false
   remote_user: "{{ terraform_user }}"
