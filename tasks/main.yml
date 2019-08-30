@@ -39,7 +39,7 @@
   ignore_errors: true
 
 - name: "terraform | install terraform {{ version}}"
-  shell: "/usr/local/bin/tfenv install {{ version }}"
+  shell: "{{ tfenv_dir }}/bin/tfenv install {{ version }}"
   when: "'{{ version }}' not in register.stdout"
   become: false
   remote_user: "{{ terraform_user }}"
