@@ -34,12 +34,8 @@
 - name: "terraform | check if terraform {{ version }} has been already installed or not"
   shell: "tfenv list"
   register: register
-  become: false
-  remote_user: "{{ terraform_user }}"
   ignore_errors: true
 
 - name: "terraform | install terraform {{ version}}"
-  shell: "{{ tfenv_dir }}/bin/tfenv install {{ version }}"
+  shell: "tfenv install {{ version }}"
   when: "'{{ version }}' not in register.stdout"
-  become: false
-  remote_user: "{{ terraform_user }}"
