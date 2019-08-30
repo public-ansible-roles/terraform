@@ -39,4 +39,4 @@
 - name: "terraform | install terraform {{ version}}"
   shell: "/usr/local/bin/tfenv install {{ version }}"
   when: "'{{ version }}' not in register.stdout"
-  ignore_erros: true
+  ignore_errors: true
